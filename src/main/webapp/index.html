@@ -1,0 +1,207 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>享贞测试系统首页</title>
+<link rel="stylesheet" href="css/layui.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body class="layui-layout-body" id="main">
+	<div class="layui-layout layui-layout-admin" id="maindiv">
+		<div class="layui-header">
+			<div class="layui-logo">享贞测试系统</div>
+
+			<!-- 头部区域（可配合layui已有的水平导航） -->
+			<ul class="layui-nav layui-layout-right">
+				<li class="layui-nav-item"><a href="javascript:;"> <img
+						src="http://t.cn/RCzsdCq" class="layui-nav-img"> <span
+						class="indexSpan01">{{name}}</span>
+				</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a @click="viewInfo">基本资料</a>
+						</dd>
+						<dd>
+							<a @click="logout">退出系统</a>
+						</dd>
+					</dl></li>
+			</ul>
+		</div>
+
+
+		<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+				<ul class="layui-nav layui-nav-tree" lay-filter="test">
+					<li class="layui-nav-item layui-nav-itemed"><a class=""
+						href="javascript:;">用例管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">接口自动化用例</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">PC UI自动化用例</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">业务场景自动化用例</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">安卓自动化用例</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">IOS自动化用例</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;">数据管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">环境数据</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">接口信息</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">项目信息</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">数据工具</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="">测试报告</a></li>
+					<li class="layui-nav-item"><a href="">调度中心</a></li>
+					<li class="layui-nav-item"><a href="javascript:;">系统设置</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">用户设置</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">报告设置</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">执行记录</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">日志信息</a>
+							</dd>
+						</dl></li>
+					
+					<li class="layui-nav-item"><a href="javascript:;">学习内容</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">笔记本</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">记录表</a>
+							</dd>
+						</dl></li>
+				</ul>
+			</div>
+		</div>
+
+
+
+		<div class="layui-body">
+			<!-- 内容主体区域 -->
+			<div style="padding: 15px;">
+			
+				<span>
+				拳不离手，曲不离口<br>
+				事无难易，孰能生巧<br>
+				
+				行到水穷处，坐看云起时<br/>
+				</span>
+
+
+
+
+
+
+
+
+
+
+
+
+			</div>
+		</div>
+
+		<div class="layui-footer">
+			<!-- 底部固定区域 -->
+			© layui.com - 底部固定区域
+		</div>
+	</div>
+	<script src="Plugins/jquery-2.1.0.js"></script>
+	<script src="js/layui.js"></script>
+	<script src="Plugins/vue.js"></script>
+
+	<script>
+		//JavaScript代码区域
+		layui.use('element', function() {
+			var element = layui.element;
+
+		});
+
+		var vm = new Vue(
+				{
+					el : "#maindiv",
+					data : {
+						baseinfo:"",		//查看资料
+						name : ''
+					},
+					mounted : function() {
+						this.getdata()
+					},
+					methods : {
+						getdata : function() {
+							var temp2 = JSON.parse(localStorage
+									.getItem('loginData')).name;
+
+							this.name = temp2;
+						},
+						logout : function() {
+							localStorage.setItem('loginData', '');
+							this.name = "";
+							this.isLogin();
+						},
+						isLogin : function() {
+							if (name == '') {
+								window.open('login.html', '_self');
+							}
+						},
+						viewInfo : function(){
+							var tempName = JSON.parse(localStorage
+										.getItem('loginData')).name;
+							var url = "http://localhost:8080/Study20190524/users/getInfo?name=" + tempName;
+							
+							$.ajax({
+								type: "GET",
+								url: url,
+								success: function(res) {
+									console.log(res);
+									
+									if(res.status == 'SUCCESS') {
+										vm.baseinfo = res.datas;
+										vm.saveinfo();
+									}else{
+										layer.msg('查看资料失败！');
+									}
+								},
+								error: function() {
+									layer.msg('查看资料失败！');
+								}
+							});
+							
+							window.open('model/baseinfo.html', '_self');
+						},
+						saveinfo : function(){
+							localStorage.setItem('baseinfo', vm.baseinfo);
+						}
+					}
+				})
+	</script>
+</body>
+</html>

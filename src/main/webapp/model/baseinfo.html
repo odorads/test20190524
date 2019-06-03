@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>基本资料</title>
+<link rel="stylesheet" href="../css/layui.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body class="layui-layout-body" id="main">
+	<div class="layui-layout layui-layout-admin" id="maindiv">
+		<div class="layui-header">
+			<div class="layui-logo" @click="gohome">享贞测试系统</div>
+
+			<!-- 头部区域（可配合layui已有的水平导航） -->
+			<ul class="layui-nav layui-layout-right">
+				<li class="layui-nav-item"><a href="javascript:;"> <img
+						src="http://t.cn/RCzsdCq" class="layui-nav-img"> <span
+						class="indexSpan01">{{name}}</span>
+				</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a @click="viewInfo">基本资料</a>
+						</dd>
+						<dd>
+							<a @click="logout">退出系统</a>
+						</dd>
+					</dl></li>
+			</ul>
+		</div>
+
+
+		<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+				<ul class="layui-nav layui-nav-tree" lay-filter="test">
+					<li class="layui-nav-item layui-nav-itemed"><a class=""
+						href="javascript:;">用例管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">接口自动化用例</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">PC UI自动化用例</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">业务场景自动化用例</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">安卓自动化用例</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">IOS自动化用例</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;">数据管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">环境数据</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">接口信息</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">项目信息</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">数据工具</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="">测试报告</a></li>
+					<li class="layui-nav-item"><a href="">调度中心</a></li>
+					<li class="layui-nav-item"><a href="javascript:;">系统设置</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">用户设置</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">报告设置</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">执行记录</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">日志信息</a>
+							</dd>
+						</dl></li>
+
+					<li class="layui-nav-item"><a href="javascript:;">学习内容</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">笔记本</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">记录表</a>
+							</dd>
+						</dl></li>
+				</ul>
+			</div>
+		</div>
+
+
+
+		<div class="layui-body">
+			<!-- 内容主体区域 -->
+			<div style="padding: 15px;" text-align:center>
+
+
+				id : {{id}} <br />
+				name : {{name}} <br /> 
+				phone : {{phone}} <br />
+				email : {{email}} <br /><br /><hr>
+
+
+				
+				<form class="layui-form" action="" >
+					<div class="layui-form-item">
+						<label class="layui-form-label">id</label>
+						<div class="layui-input-inline">
+							<input type="text" name="id" required
+								lay-verify="required" v-bind:placeholder="id" autocomplete="off"
+								class="layui-input" readonly="readonly">
+						</div>
+						<div class="layui-form-mid layui-word-aux">不可以编辑</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">用户名</label>
+						<div class="layui-input-inline">
+							<input ref="name" v-model="name" type="text" name="title" required lay-verify="required"
+								 v-bind:placeholder="name" autocomplete="off" class="layui-input">
+						</div> 
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">旧密码</label>
+						<div class="layui-input-inline">
+							<input ref="oldpsd" v-model="oldpsd" type="password" name="password1" required
+								lay-verify="required" placeholder="请输入密码" autocomplete="off"
+								class="layui-input">
+						</div> 
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">新密码</label>
+						<div class="layui-input-inline">
+							<input ref="newpsd" v-model="newpsd" type="password" name="password2" 
+								lay-verify="required" placeholder="请输入密码" autocomplete="off"
+								class="layui-input">
+						</div> 
+						<div class="layui-form-mid layui-word-aux">可以不填写</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">邮件地址</label>
+						<div class="layui-input-inline">
+							<input ref="email" v-model="email" type="text" name="email" required lay-verify="required"
+								 v-bind:placeholder="email" autocomplete="off" class="layui-input">
+						</div>  
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">电话号码</label>
+						<div class="layui-input-inline">
+							<input ref="phone" v-model="phone" type="text" name="phone" required lay-verify="required"
+								 v-bind:placeholder="phone" autocomplete="off" class="layui-input">
+						</div>  
+					</div>
+					
+					
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit lay-filter="formDemo" @click="updateInfo()">立即提交</button>
+						</div>
+					</div>
+				</form>
+
+
+
+
+
+
+
+
+			</div>
+		</div>
+
+		<div class="layui-footer">
+			<!-- 底部固定区域 -->
+			© layui.com - 底部固定区域
+		</div>
+	</div>
+	<script src="../js/layui.js"></script>
+	<script src="../Plugins/vue.js"></script>
+
+	<script>
+		//JavaScript代码区域
+		layui.use('element', function() {
+			var element = layui.element;
+
+		});
+
+		var vm = new Vue(
+				{
+					el : "#maindiv",
+					data : {
+						baseinfo : false, //查看资料
+						name : '',
+						id : '',
+						newpsd : '',
+						oldpsd : '',
+						email : '',
+						phone : ''
+					},
+					mounted : function() {
+						this.getdata()
+					},
+					methods : {
+						getdata : function() {
+							var temp2 = JSON.parse(localStorage
+									.getItem('loginData')).name;
+
+							this.name = temp2;
+
+							this.getbaseinfo();
+						},
+						logout : function() {
+							localStorage.setItem('loginData', '');
+							this.name = "";
+							this.isLogin();
+						},
+						isLogin : function() {
+							if (name == '') {
+								window.open('../login.html', '_self');
+							}
+						},
+						viewInfo : function() {
+							window.location.reload();
+						},
+						gohome : function() {
+							window.open('../index.html', '_self');
+						},
+						getbaseinfo : function() {
+							id = JSON.parse(localStorage.getItem('baseinfo')).id;
+							name = JSON.parse(localStorage.getItem('baseinfo')).name;
+							phone = JSON
+									.parse(localStorage.getItem('baseinfo')).phone;
+							email = JSON
+									.parse(localStorage.getItem('baseinfo')).email;
+
+							this.id = id;
+							this.name = name;
+							this.phone = phone;
+							this.email = email;
+						},
+						updateInfo : function() {
+							var url = "http://localhost:8080/Study20190524/users/updateInfo";
+							
+							var obj = {
+									"name": name,
+									"newpsd": newpsd,
+									"oldpsd": oldpsd,
+									"email": email,
+									"phone": phone
+								}
+							
+							alert("123"+name + newpsd + oldpsd + email + phone);
+							
+							
+							$.ajax({
+								type: "POST",
+								url: url,
+								data: obj,
+								success: function(res) {
+									if(res.status == 'SUCCESS') {
+										alert("编辑用户信息");
+									} else {
+										layer.msg('用户信息修改失败！');
+									}
+								},
+								error: function() {
+									layer.msg('用户信息修改失败！');
+								}
+							});
+						}
+						
+					}
+				})
+	</script>
+</body>
+</html>
